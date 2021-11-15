@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <OutputType>Library</OutputType>
+        <AssemblyName>ReportSharp</AssemblyName>
+        <RootNamespace>ReportSharp</RootNamespace>
+        <PackageId>ReportSharp</PackageId>
+        <Version>1.0.2</Version>
+        <Authors>AshkanAbd</Authors>
+        <Company>AshkanAbd</Company>
+        <PackageVersion>1.0.2</PackageVersion>
+        <Title>Crash and inforamtion reporter for dotnet</Title>
+        <Description>Crash and information reporter for dotnet</Description>
+        <PackageTags>Logger;Reporter;Crash detection;Crash;Cash detector</PackageTags>
+        <RepositoryUrl>https://github.com/arkatech-ir/ReportSharp</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DSharpPlus" Version="4.1.0"/>
+        <PackageReference Include="SoftDelete" Version="1.1.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.11"/>
+    </ItemGroup>
+</Project>
