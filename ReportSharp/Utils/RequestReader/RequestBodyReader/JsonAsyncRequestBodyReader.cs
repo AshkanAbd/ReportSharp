@@ -8,7 +8,7 @@ namespace ReportSharp.Utils.RequestReader.RequestBodyReader
 {
     public class JsonAsyncRequestBodyReader : IAsyncRequestBodyReader
     {
-        public async Task<string> ReadAsync(HttpContext context)
+        public virtual async Task<string> ReadAsync(HttpContext context)
         {
             using var reader = new StreamReader(context.Request.Body, Encoding.UTF8,
                 false, 1024, true);

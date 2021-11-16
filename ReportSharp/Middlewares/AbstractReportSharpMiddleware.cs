@@ -32,7 +32,7 @@ namespace ReportSharp.Middlewares
 
         public abstract Task OnExecutedAsync(HttpContext context);
 
-        public async Task InvokeAsync(HttpContext context, IReportSharpService reportSharpService)
+        public virtual async Task InvokeAsync(HttpContext context, IReportSharpService reportSharpService)
         {
             var reportSharpConfig = GetReportSharpConfig(context.RequestServices);
 

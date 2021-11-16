@@ -16,12 +16,13 @@ namespace ReportSharp.Reporters.DiscordReporter
 
         public IDiscordService DiscordService { get; set; }
 
-        public async Task ReportData(HttpContext httpContext, string tag, string data)
+        public virtual async Task ReportData(HttpContext httpContext, string tag, string data)
         {
             await DiscordService.SendMessage($"#{tag}: {data}");
         }
 
-        public async Task ReportException(HttpContext httpContext, ReportSharpRequest request, Exception exception)
+        public virtual async Task ReportException(HttpContext httpContext, ReportSharpRequest request,
+            Exception exception)
         {
             if (DiscordService == null) return;
 
@@ -29,7 +30,7 @@ namespace ReportSharp.Reporters.DiscordReporter
             await DiscordService.SendMessage(request.ReportSharpResponse.ToString());
         }
 
-        public async Task ReportRequest(HttpContext httpContext, ReportSharpRequest request)
+        public virtual async Task ReportRequest(HttpContext httpContext, ReportSharpRequest request)
         {
             if (DiscordService == null) return;
 

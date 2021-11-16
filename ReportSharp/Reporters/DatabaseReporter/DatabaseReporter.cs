@@ -16,7 +16,7 @@ namespace ReportSharp.Reporters.DatabaseReporter
 
         public ReportSharpDbContext ReportSharpDbContext { get; set; }
 
-        public async Task ReportData(HttpContext httpContext, string tag, string data)
+        public virtual async Task ReportData(HttpContext httpContext, string tag, string data)
         {
             if (ReportSharpDbContext == null) return;
 
@@ -27,7 +27,8 @@ namespace ReportSharp.Reporters.DatabaseReporter
             await ReportSharpDbContext.SaveChangesAsync();
         }
 
-        public async Task ReportException(HttpContext httpContext, ReportSharpRequest request, Exception exception)
+        public virtual async Task ReportException(HttpContext httpContext, ReportSharpRequest request,
+            Exception exception)
         {
             if (ReportSharpDbContext == null) return;
 
@@ -35,7 +36,7 @@ namespace ReportSharp.Reporters.DatabaseReporter
             await ReportSharpDbContext.SaveChangesAsync();
         }
 
-        public async Task ReportRequest(HttpContext httpContext, ReportSharpRequest request)
+        public virtual async Task ReportRequest(HttpContext httpContext, ReportSharpRequest request)
         {
             if (ReportSharpDbContext == null) return;
 

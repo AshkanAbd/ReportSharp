@@ -9,7 +9,7 @@ namespace ReportSharp.Utils.ResponseReader.ResponseContentReader
 {
     public class JsonResponseContentReader : IAsyncResponseContentReader
     {
-        public async Task<string> ReadAsync(HttpContext context, Exception exception)
+        public virtual async Task<string> ReadAsync(HttpContext context, Exception exception)
         {
             using var reader = new StreamReader(context.Response.Body, Encoding.UTF8,
                 false, 1024, true);

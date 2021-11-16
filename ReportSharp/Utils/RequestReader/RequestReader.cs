@@ -17,7 +17,7 @@ namespace ReportSharp.Utils.RequestReader
 
         public HttpContext Context { get; }
 
-        public async Task<ReportSharpRequest> Read()
+        public virtual async Task<ReportSharpRequest> Read()
         {
             var reportSharpRequest = new ReportSharpRequest {
                 Url = Context.Request.Path,
@@ -31,21 +31,21 @@ namespace ReportSharp.Utils.RequestReader
             return reportSharpRequest;
         }
 
-        public string ReadHeaders()
+        public virtual string ReadHeaders()
         {
             return string.Join(",\n", Context.Request.Headers
                 .Select(x => $"{x.Key} => {x.Value}")
                 .ToList());
         }
 
-        public string ReadQueries()
+        public virtual string ReadQueries()
         {
             return string.Join(",\n", Context.Request.Query
                 .Select(x => $"{x.Key} => {x.Value}")
                 .ToList());
         }
 
-        public async Task<string> ReadBody()
+        public virtual async Task<string> ReadBody()
         {
             if (_requestBodyReader is IAsyncRequestBodyReader asyncRequestBodyReader)
                 return await asyncRequestBodyReader.ReadAsync(Context);
@@ -53,7 +53,7 @@ namespace ReportSharp.Utils.RequestReader
             return _requestBodyReader?.Read(Context);
         }
 
-        public void SetRequestBodyReader(IRequestBodyReader requestBodyReader)
+        public virtual void SetRequestBodyReader(IRequestBodyReader requestBodyReader)
         {
             _requestBodyReader = requestBodyReader;
         }

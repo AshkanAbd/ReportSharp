@@ -29,17 +29,17 @@ namespace ReportSharp.Services.DiscordService
             AddChannels(options.Value.Channels);
         }
 
-        public DiscordClient GetDiscordClient()
+        public virtual DiscordClient GetDiscordClient()
         {
             return _discordClient;
         }
 
-        public HashSet<DiscordChannel> GetChannels()
+        public virtual HashSet<DiscordChannel> GetChannels()
         {
             return _discordChannels;
         }
 
-        public async Task SendMessage(string content)
+        public virtual async Task SendMessage(string content)
         {
             foreach (var discordChannel in _discordChannels)
                 for (var i = 0; i < content.Length; i += 1999)

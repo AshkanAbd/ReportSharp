@@ -5,7 +5,7 @@ namespace ReportSharp.Utils.ResponseReader.ResponseContentReader
 {
     public class FileResponseContentReader : IResponseContentReader
     {
-        public string Read(HttpContext context, Exception exception)
+        public virtual string Read(HttpContext context, Exception exception)
         {
             return $"File: {context.Response.ContentType} | {context.Response.ContentLength} bytes";
         }

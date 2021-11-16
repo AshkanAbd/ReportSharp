@@ -20,7 +20,7 @@ namespace ReportSharp.Utils.ResponseReader
         public HttpContext Context { get; }
         public Exception Exception { get; }
 
-        public async Task<ReportSharpResponse> Read()
+        public virtual async Task<ReportSharpResponse> Read()
         {
             var reportSharpResponse = new ReportSharpResponse {
                 StatusCode = Exception != null ? "500" : Context.Response.StatusCode.ToString(),
@@ -31,7 +31,7 @@ namespace ReportSharp.Utils.ResponseReader
             return reportSharpResponse;
         }
 
-        public async Task<string> ReadContent()
+        public virtual async Task<string> ReadContent()
         {
             if (_responseContentReader is IAsyncResponseContentReader asyncResponseContentReader)
                 return await asyncResponseContentReader.ReadAsync(Context, Exception);
@@ -39,14 +39,14 @@ namespace ReportSharp.Utils.ResponseReader
             return _responseContentReader?.Read(Context, Exception);
         }
 
-        public string ReadHeaders()
+        public virtual string ReadHeaders()
         {
             return string.Join(",\n", Context.Response.Headers
                 .Select(x => $"{x.Key} => {x.Value}")
                 .ToList());
         }
 
-        public void SetResponseContentReader(IResponseContentReader responseContentReader)
+        public virtual void SetResponseContentReader(IResponseContentReader responseContentReader)
         {
             _responseContentReader = responseContentReader;
         }

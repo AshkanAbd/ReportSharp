@@ -19,7 +19,7 @@ namespace ReportSharp.Controllers
         public ReportSharpDbContext DbContext { get; }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public virtual async Task<ActionResult> Index()
         {
             if (!int.TryParse(HttpContext.Request.Query["page"], out var page)) page = 1;
             if (!int.TryParse(HttpContext.Request.Query["pageSize"], out var pageSize)) pageSize = 10;
@@ -50,7 +50,7 @@ namespace ReportSharp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Show()
+        public virtual async Task<ActionResult> Show()
         {
             if (!int.TryParse(HttpContext.Request.RouteValues["id"]?.ToString(), out var id)) id = 0;
 
