@@ -6,7 +6,7 @@ Crash and information reporter for dotnet.
 The package that reports request, crashes, exceptions and any other data you want.    
 Compatible with any service such as email, discord, telegram and etc. All you need to do is implementing report for it.   
 You can easily config and use it in your ASP.Net projects.   
-If you like it you can [support me](#donation)
+If you like it you can [support this project](#donation)
 
 ## Concepts:
 
