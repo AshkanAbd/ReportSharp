@@ -50,7 +50,7 @@ namespace ReportSharp.Middlewares
             context.Request.Body.Seek(0, SeekOrigin.Begin);
 
             ReportSharpService = reportSharpService;
-            ReportSharpService.SetCurrentLog(reportSharpRequest);
+            ReportSharpService.SetRequest(reportSharpRequest);
 
             await BeforeExecutingAsync(context);
             var originalBody = context.Response.Body;
@@ -61,12 +61,13 @@ namespace ReportSharp.Middlewares
 
                 await Next(context);
 
-                if (HasExceptionHandlerFeature(context)) {
+                var exception = GetException(context);
+                if (exception != null) {
                     context.Response.Body = originalBody;
 
-                    await ReadResponse(context, GetExceptionHandlerFeature(context));
+                    await ReadResponse(context, exception);
 
-                    await OnExceptionAsync(context, GetExceptionHandlerFeature(context));
+                    await OnExceptionAsync(context, exception);
                 }
                 else {
                     memoryStream.Position = 0;
@@ -98,19 +99,19 @@ namespace ReportSharp.Middlewares
             var responseReader = new ResponseReader(context, exception);
 
             if (exception != null)
-                responseReader.SetResponseContentReader(new ExceptionResponseContentReader());
+                responseReader.UseResponseContentReader(new ExceptionResponseContentReader());
             else if (context.Response.ContentType == null)
-                responseReader.SetResponseContentReader(new JsonResponseContentReader());
+                responseReader.UseResponseContentReader(new JsonResponseContentReader());
             else if (context.Response.ContentType.ToLower().Contains("charset=UTF-8".ToLower()))
-                responseReader.SetResponseContentReader(new JsonResponseContentReader());
+                responseReader.UseResponseContentReader(new JsonResponseContentReader());
             else
-                responseReader.SetResponseContentReader(new FileResponseContentReader());
+                responseReader.UseResponseContentReader(new FileResponseContentReader());
 
             var reportSharpResponse = await responseReader.Read();
 
-            reportSharpResponse.RequestId = ReportSharpService.GetCurrentLog().Id;
-            reportSharpResponse.ReportSharpRequest = ReportSharpService.GetCurrentLog();
-            ReportSharpService.GetCurrentLog().ReportSharpResponse = reportSharpResponse;
+            reportSharpResponse.RequestId = ReportSharpService.GetRequest().Id;
+            reportSharpResponse.ReportSharpRequest = ReportSharpService.GetRequest();
+            ReportSharpService.GetRequest().ReportSharpResponse = reportSharpResponse;
         }
 
         protected virtual async Task<ReportSharpRequest> ReadRequest(HttpContext context)
@@ -125,18 +126,11 @@ namespace ReportSharp.Middlewares
             return await requestReader.Read();
         }
 
-        protected virtual bool HasExceptionHandlerFeature(HttpContext context)
+        protected virtual Exception GetException(HttpContext context)
         {
             var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
 
-            return exceptionHandlerFeature != null;
-        }
-
-        protected virtual Exception GetExceptionHandlerFeature(HttpContext context)
-        {
-            if (HasExceptionHandlerFeature(context)) return context.Features.Get<IExceptionHandlerFeature>().Error;
-
-            return null;
+            return exceptionHandlerFeature?.Error;
         }
 
         protected virtual ReportSharpConfig GetReportSharpConfig(IServiceProvider serviceProvider)

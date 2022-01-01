@@ -5,22 +5,20 @@
         <AssemblyName>ReportSharp</AssemblyName>
         <RootNamespace>ReportSharp</RootNamespace>
         <PackageId>ReportSharp</PackageId>
-        <Version>1.0.2</Version>
+        <Version>1.0.5</Version>
         <Authors>AshkanAbd</Authors>
         <Company>AshkanAbd</Company>
-        <PackageVersion>1.0.4</PackageVersion>
+        <PackageVersion>1.0.5</PackageVersion>
         <Title>Crash and information reporter for dotnet</Title>
         <Description>Crash and information reporter for dotnet</Description>
         <PackageTags>Logger;Reporter;Crash detection;Crash;Crash detector</PackageTags>
         <RepositoryUrl>https://github.com/arkatech-ir/ReportSharp</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="DSharpPlus" Version="4.1.0"/>
         <PackageReference Include="SoftDelete" Version="1.1.1"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.11"/>
     </ItemGroup>
 </Project>

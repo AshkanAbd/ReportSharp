@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using ReportSharp.Builder.ReportSharpConfigureBuilder;
+using ReportSharp.Builder.ReportSharpBuilder;
 using ReportSharp.Builder.ReportSharpOptionsBuilder;
 using ReportSharp.Services.ReportSharpService;
 
@@ -28,14 +28,14 @@ namespace ReportSharp.Extensions
         }
 
         public static IApplicationBuilder UseReportSharp(this IApplicationBuilder app,
-            Action<IReportSharpConfigureBuilder> configureBuilder)
+            Action<ReportSharpBuilder> configureBuilder)
         {
             if (app == null)
                 throw new ArgumentNullException(nameof(app));
             if (configureBuilder == null)
                 throw new ArgumentNullException(nameof(configureBuilder));
 
-            var configure = new ReportSharpConfigureBuilder(app);
+            var configure = new ReportSharpBuilder(app);
             configureBuilder(configure);
 
             return app;

@@ -14,7 +14,7 @@ namespace ReportSharp.Middlewares
 
         public override Task OnExceptionAsync(HttpContext context, Exception exception)
         {
-            var reportSharpRequest = ReportSharpService.GetCurrentLog();
+            var reportSharpRequest = ReportSharpService.GetRequest();
 
             var reporters = context.RequestServices.GetServices<IExceptionReporter>();
             foreach (var reporter in reporters) reporter.ReportException(context, reportSharpRequest, exception);
@@ -29,7 +29,7 @@ namespace ReportSharp.Middlewares
 
         public override Task OnExecutedAsync(HttpContext context)
         {
-            var reportSharpRequest = ReportSharpService.GetCurrentLog();
+            var reportSharpRequest = ReportSharpService.GetRequest();
 
             var reporters = context.RequestServices.GetServices<IRequestReporter>();
             foreach (var reporter in reporters) reporter.ReportRequest(context, reportSharpRequest);

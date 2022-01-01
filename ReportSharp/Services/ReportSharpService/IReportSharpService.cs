@@ -4,7 +4,7 @@ namespace ReportSharp.Services.ReportSharpService
 {
     public interface IReportSharpService
     {
-        public ReportSharpRequest GetCurrentLog();
-        internal void SetCurrentLog(ReportSharpRequest reportSharpRequest);
+        public ReportSharpRequest GetRequest();
+        internal void SetRequest(ReportSharpRequest reportSharpRequest);
     }
 }

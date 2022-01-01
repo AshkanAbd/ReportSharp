@@ -1,8 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using ReportSharp.Builder.ApiOptionsBuilder;
-using ReportSharp.Builder.ConfigOptionsBuilder;
 using ReportSharp.Builder.ReporterOptionsBuilder;
+using ReportSharp.Builder.ReportSharpConfigBuilder;
 using ReportSharp.Reporters;
 
 namespace ReportSharp.Builder.ReportSharpOptionsBuilder
@@ -64,21 +63,10 @@ namespace ReportSharp.Builder.ReportSharpOptionsBuilder
             return this;
         }
 
-        public IReportSharpOptionsBuilder ConfigureReportSharp(
-            Action<IReportSharpConfigOptionsBuilder> reportSharpConfigOptionsBuilder)
+        public IReportSharpOptionsBuilder ConfigReportSharp(
+            Action<IReportSharpConfigBuilder> reportSharpConfigOptionsBuilder)
         {
-            reportSharpConfigOptionsBuilder(new ReportSharpConfigOptionsBuilder(ServiceCollection));
-
-            return this;
-        }
-
-        public IReportSharpOptionsBuilder AddApis(Action<IApiOptionsBuilder> options)
-        {
-            ServiceCollection.AddMvc(mvcOptions =>
-                mvcOptions.EnableEndpointRouting = false
-            );
-
-            options(new ApiOptionsBuilder.ApiOptionsBuilder(ServiceCollection));
+            reportSharpConfigOptionsBuilder(new ReportSharpConfigBuilder.ReportSharpConfigBuilder(ServiceCollection));
 
             return this;
         }

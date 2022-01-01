@@ -46,7 +46,7 @@ namespace ReportSharp.Utils.ResponseReader
                 .ToList());
         }
 
-        public virtual void SetResponseContentReader(IResponseContentReader responseContentReader)
+        public virtual void UseResponseContentReader(IResponseContentReader responseContentReader)
         {
             _responseContentReader = responseContentReader;
         }

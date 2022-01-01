@@ -1,13 +1,15 @@
 ﻿using System;
-using ReportSharp.Builder.ApiOptionsBuilder;
-using ReportSharp.Builder.ConfigOptionsBuilder;
+using Microsoft.Extensions.DependencyInjection;
 using ReportSharp.Builder.ReporterOptionsBuilder;
+using ReportSharp.Builder.ReportSharpConfigBuilder;
 using ReportSharp.Reporters;
 
 namespace ReportSharp.Builder.ReportSharpOptionsBuilder
 {
     public interface IReportSharpOptionsBuilder
     {
+        public IServiceCollection ServiceCollection { get; }
+
         public IReportSharpOptionsBuilder AddReporter<TReporter, TReporterOptionsBuilder>(
             Func<TReporterOptionsBuilder> reporterOptionsBuilder)
             where TReporter : IDataReporter, IExceptionReporter, IRequestReporter
@@ -28,9 +30,7 @@ namespace ReportSharp.Builder.ReportSharpOptionsBuilder
             Func<IDataReporterOptionsBuilder<TReporter>> reporterOptionsBuilder)
             where TReporter : IDataReporter;
 
-        public IReportSharpOptionsBuilder AddApis(Action<IApiOptionsBuilder> options);
-
-        public IReportSharpOptionsBuilder ConfigureReportSharp(
-            Action<IReportSharpConfigOptionsBuilder> reportSharpConfigOptionsBuilder);
+        public IReportSharpOptionsBuilder ConfigReportSharp(
+            Action<IReportSharpConfigBuilder> reportSharpConfigOptionsBuilder);
     }
 }

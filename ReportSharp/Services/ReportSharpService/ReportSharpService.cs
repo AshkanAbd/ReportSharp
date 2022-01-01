@@ -6,12 +6,12 @@ namespace ReportSharp.Services.ReportSharpService
     {
         private ReportSharpRequest _reportSharpRequest;
 
-        void IReportSharpService.SetCurrentLog(ReportSharpRequest reportSharpRequest)
+        void IReportSharpService.SetRequest(ReportSharpRequest reportSharpRequest)
         {
             _reportSharpRequest = reportSharpRequest;
         }
 
-        public ReportSharpRequest GetCurrentLog()
+        public ReportSharpRequest GetRequest()
         {
             return _reportSharpRequest;
         }
